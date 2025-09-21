@@ -8,7 +8,7 @@ import random
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
 
-IMG_DIR = "assets/imgs"
+IMG_DIR = "assets/imgs/bunny_girls"  # Directory where bunny girl images are stored
 
 class BunnyGirl(commands.Cog):
     def __init__(self, bot):
