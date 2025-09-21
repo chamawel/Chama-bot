@@ -10,9 +10,9 @@ GUILD_ID = os.getenv("GUILD_ID")
 class Print(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
-    @app_commands.command(name="print", description="Recopie le texte donné")
-    @app_commands.describe(value="Le texte à recopier")
+
+    @app_commands.command(name="print", description="copies the text you give")
+    @app_commands.describe(value="the text to copy")
     @app_commands.guilds(discord.Object(id=GUILD_ID))
     async def say_hello(self, interaction: discord.Interaction, value: str):
         await interaction.response.send_message(value)
