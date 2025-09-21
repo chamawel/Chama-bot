@@ -1,0 +1,5 @@
+/.vscode
+/botenv
+*.env
+*.log
+*/__pycache__/
