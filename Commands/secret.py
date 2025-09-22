@@ -22,11 +22,11 @@ class Secret(commands.Cog):
             await interaction.response.send_message("Incorrect password.", ephemeral=True)
             return
 
-        # 10% chance to send a random image from assets/imgs/secret_imgs/
+        # 10% chance of happening output
         if random.random() < 0.1:
             img_dir = "assets/imgs/secret_imgs"
             try:
-                files = [f for f in os.listdir(img_dir) if os.path.isfile(os.path.join(img_dir, f))]
+                files = [f for f in os.listdir(img_dir) if os.path.isfile(os.path.join(img_dir, f))] # getting all the files
             except FileNotFoundError:
                 files = []
             if files:
@@ -35,7 +35,8 @@ class Secret(commands.Cog):
                 with open(img_path, "rb") as img_file:
                     await interaction.response.send_message(file=discord.File(img_file, chosen_file))
                 return
-
+        
+        # normal output
         x = f"{' ' * size}"         
         result = f"({x}.{x})({x}.{x})"
         await interaction.response.send_message(result)
