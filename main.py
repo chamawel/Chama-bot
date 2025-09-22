@@ -24,7 +24,8 @@ class Client(commands.Bot):
             
     
     async def on_message(self, message):
-        print(f'Message from {message.author}: {message.content}')
+        if message.author == self.user:
+            return
         
         if message.content.lower().endswith("quoi"):
             await message.reply("feur")    
