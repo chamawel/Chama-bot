@@ -17,9 +17,11 @@ DICE_OPTIONS = [    # add more dice types as needed
 
 class DiceSelect(discord.ui.View):
     """The view that holds the dropdown menu."""
+    
     def __init__(self):
         super().__init__(timeout=30)
         options = [
+
             discord.SelectOption(label=name, description=f"Roll a {sides}-sided dice")
             for name, sides in DICE_OPTIONS
         ]
@@ -27,10 +29,13 @@ class DiceSelect(discord.ui.View):
 
 class DiceDropdown(discord.ui.Select):
     """The dropdown menu for selecting a dice to roll."""
+
     def __init__(self, options):
         super().__init__(placeholder="Choose a dice to roll...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
+        """The selection's handler says what to do when an option picked""" 
+
         dice_label = self.values[0]
         sides = next(s for n, s in DICE_OPTIONS if n == dice_label)
         result = random.randint(1, sides)
@@ -44,6 +49,7 @@ class DiceDropdown(discord.ui.Select):
 
 class DiceRoll(commands.Cog):
     """Cog for rolling dices."""
+
     def __init__(self, bot):
         self.bot = bot
 
