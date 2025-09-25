@@ -8,7 +8,7 @@ import random
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
 
-CONVERT_OPTIONS = [
+CONVERT_OPTIONS : list = [
     ("To Celsius", "celsius"),
     ("To Fahrenheit", "fahrenheit"),
     ("To Binary", "binary"),
@@ -67,7 +67,7 @@ class ConvertDropdown(discord.ui.Select):
                         text = f"binary: {' | '.join(bytes_list)}"
 
                 case "hexadecimal":                     # int to hex
-                    text = f"hexadecimal: {hex(value)}"
+                    text = f"hexadecimal: 0x{hex(value + (1 << 32))[-8:]}" 
 
             
         

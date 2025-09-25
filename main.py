@@ -41,5 +41,6 @@ async def main():
         if fn.endswith(".py") and not fn.startswith("__"):
             await client.load_extension(f"Commands.{fn[:-3]}")
     await client.start(BOT_TOKEN)
+    
 
 asyncio.run(main())

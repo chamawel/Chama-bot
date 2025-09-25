@@ -6,8 +6,8 @@ import dotenv
 
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
-ALLOWED_ROLE_ID = int(os.getenv("ALLOWED_ROLE_ID", 0))  # Add your role ID to .env
-ALLOWED_USER_ID = int(os.getenv("ALLOWED_USER_ID", 0))  # Or your user ID to .env
+ALLOWED_ROLE_ID = int(os.getenv("ALLOWED_ROLE_ID", 0)) 
+ALLOWED_USER_ID = int(os.getenv("ALLOWED_USER_ID", 0))  
 
 class ClearBotMsg(commands.Cog):
     def __init__(self, bot):
