@@ -8,7 +8,7 @@ import random
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
 
-CONVERT_OPTIONS : list = [
+CONVERT_OPTIONS = [
     ("To Celsius", "celsius"),
     ("To Fahrenheit", "fahrenheit"),
     ("To Binary", "binary"),
@@ -39,6 +39,9 @@ class ConvertDropdown(discord.ui.Select):
         choice : str = self.values[0]
         value  : int = self.value_to_convert
         color  : str = discord.Color(random.randint(0, 0xFFFFFF))
+        value  : int
+        result : float
+        text   : str
 
         try:
             match choice: # switch case cus ooohhh fancy (and cleaner)
@@ -51,26 +54,51 @@ class ConvertDropdown(discord.ui.Select):
                     result = value * 9 / 5 + 32
                     text = f"{value}°C = {result:.2f}°F"
 
-                case "binary":                          # int to binary
-                    if value == 0:
-                        text = "binary: 00000000"
+                case "binary":                          # int to binary (signed)
+                    val_copy = value
+                    bits = 8
+
+                    # Find minimum bits needed (at least 8)
+                    if val_copy < 0:
+                        # Two's complement (we saw that in class)
+                        val_copy_unsigned = (abs(val_copy) ^ ((1 << bits) - 1)) + 1
+                        val_copy_unsigned &= (1 << bits) - 1
+                        val_copy = val_copy_unsigned
                     else:
-                        n = value
-                        bytes_list = []
-                        while n > 0:
-                            byte = ""
-                            for i in range(8):
-                                byte = str(n % 2) + byte
-                                n = n // 2
-                            byte = byte.zfill(8)
-                            bytes_list.insert(0, byte)
-                        text = f"binary: {' | '.join(bytes_list)}"
+                        val_copy = val_copy
+                    
+                    # Build bytes
+                    bytes_list = []
+                    total = abs(value)
+                    
+                    # Calculate how many bytes needed (at least 1)
+                    min_bytes = max(1, (total.bit_length() + 7) // 8)
+                    val_copy = value if value >= 0 else (1 << (min_bytes * 8)) + value
+                    
+                    for _ in range(min_bytes):
+                        byte = ""
+                        for i in range(8):
+                            byte = str(val_copy % 2) + byte
+                            val_copy = val_copy // 2
+                        
+                        bytes_list.insert(0, byte)
+                    
+                    text = f"binary: {' | '.join(bytes_list)}"
 
-                case "hexadecimal":                     # int to hex
-                    text = f"hexadecimal: 0x{hex(value + (1 << 32))[-8:]}" 
+                case "hexadecimal":                     # int to hex (signed)
+                    total = abs(value)
+                    min_bytes = max(1, (total.bit_length() + 7) // 8)
+                    
+                    if value < 0:
+                        # Two's complement for negative numbers and yes i'm too lazy to make it fully by myself
+                        hex_value = hex((1 << (min_bytes * 8)) + value)
+                    else:
+                        hex_value = hex(value) 
+                    
+                    # Format to always show full bytes
+                    hex_str = hex_value[2:].zfill(min_bytes * 2)
+                    text = f"hexadecimal: 0x{hex_str}"
 
-            
-        
         except Exception as e:              #for dummies that enters str and floats
             text = f"Convertion error: {e}"
 
