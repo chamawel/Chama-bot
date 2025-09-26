@@ -120,7 +120,7 @@ class Convert(commands.Cog):
     async def convert(self, interaction: discord.Interaction, value: int):
         color = discord.Color(random.randint(0, 0xFFFFFF))
         embed = discord.Embed(
-            title="Choose Conversion",
+            title="Choose Convertion",
             description=f"Select the unit you want to convert __{value}__ to:",
             color=color
         )
