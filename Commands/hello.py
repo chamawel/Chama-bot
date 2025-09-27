@@ -12,7 +12,7 @@ class Hello(commands.Cog):
         self.bot = bot
     
     @app_commands.command(name="hello", description="send hello")
-    @app_commands.guilds(discord.Object(id=GUILD_ID))
+    #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def say_hello(self, interaction: discord.Interaction):
         await interaction.response.send_message("hello")
 

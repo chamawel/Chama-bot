@@ -16,7 +16,7 @@ class Secret(commands.Cog):
 
     @app_commands.command(name="secret", description="Enter the password and a size to get a secret pattern")
     @app_commands.describe(password="The secret password", size="The size for the pattern")
-    @app_commands.guilds(discord.Object(id=GUILD_ID))
+    #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def secret(self, interaction: discord.Interaction, password: str, size: int):
         if password != SECRET_PASSWORD:
             await interaction.response.send_message("Incorrect password.", ephemeral=True)

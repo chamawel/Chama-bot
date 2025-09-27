@@ -54,7 +54,7 @@ class DiceRoll(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="roll", description="Display available dice to roll")
-    @app_commands.guilds(discord.Object(id=GUILD_ID))
+    #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def roll(self, interaction: discord.Interaction):
         random_color = discord.Color(random.randint(0, 0xFFFFFF)) # Generate a random hex color  for the embed
         embed = discord.Embed(

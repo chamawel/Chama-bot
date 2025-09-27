@@ -16,8 +16,8 @@ class Client(commands.Bot):
         
         try:
             GUILD = discord.Object(id=os.getenv("GUILD_ID"))
-            synced = await self.tree.sync(guild=GUILD)
-            print(f"Synced {len(synced)} commands to guild {GUILD.id}")
+            synced = await self.tree.sync()
+            print(f"Synced {len(synced)} commands globally")
         except Exception as e:
             print(f"Error syncing commands: {e}")
             

@@ -15,7 +15,7 @@ class BunnyGirl(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="bunny_girl", description="sends a random img of a bunny girl")
-    @app_commands.guilds(discord.Object(id=GUILD_ID))
+    #@app_commands.guilds(discord.Object(id=GUILD_ID))
     
     async def bunnyGirl(self, interaction: discord.Interaction):
         try:

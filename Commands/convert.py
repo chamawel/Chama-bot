@@ -116,7 +116,7 @@ class Convert(commands.Cog):
 
     @app_commands.command(name="convert", description="Convert an integer value to another unit")
     @app_commands.describe(value="The value to convert (must be an integer)") 
-    @app_commands.guilds(discord.Object(id=GUILD_ID))
+    #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def convert(self, interaction: discord.Interaction, value: int):
         color = discord.Color(random.randint(0, 0xFFFFFF))
         embed = discord.Embed(
