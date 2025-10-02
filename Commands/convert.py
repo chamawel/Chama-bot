@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 import os
 import dotenv
-import random
+import numpy
 
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
@@ -38,7 +38,7 @@ class ConvertDropdown(discord.ui.Select):
 
         choice : str = self.values[0]
         value  : int = self.value_to_convert
-        color  : str = discord.Color(random.randint(0, 0xFFFFFF))
+        color  : str = discord.Color(numpy.random.randint(0, 0xFFFFFF))
         value  : int
         result : float
         text   : str
@@ -115,10 +115,12 @@ class Convert(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="convert", description="Convert an integer value to another unit")
-    @app_commands.describe(value="The value to convert (must be an integer)") 
+    @app_commands.describe(value="The value to convert (must be an integer)")
+    @app_commands.allowed_contexts(guilds=True, dms= True, private_channels=True)
+    @app_commands.user_install()
     #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def convert(self, interaction: discord.Interaction, value: int):
-        color = discord.Color(random.randint(0, 0xFFFFFF))
+        color = discord.Color(numpy.random.randint(0, 0xFFFFFF))
         embed = discord.Embed(
             title="Choose Convertion",
             description=f"Select the unit you want to convert __{value}__ to:",

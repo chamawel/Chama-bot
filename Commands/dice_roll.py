@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 import os
 import dotenv
-import random
+import numpy
 
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
@@ -38,9 +38,9 @@ class DiceDropdown(discord.ui.Select):
 
         dice_label = self.values[0]
         sides = next(s for n, s in DICE_OPTIONS if n == dice_label)
-        result = random.randint(1, sides)
+        result = numpy.random.randint(1, sides)
 
-        color = discord.Color(random.randint(0, 0xFFFFFF))
+        color = discord.Color(numpy.random.randint(0, 0xFFFFFF))
         embed = discord.Embed(
             title=f"{interaction.user.display_name} rolled {result} on the {dice_label}",
             color=color
@@ -54,9 +54,11 @@ class DiceRoll(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="roll", description="Display available dice to roll")
+    @app_commands.allowed_contexts(guilds=True, dms= True, private_channels=True)
+    @app_commands.user_install()
     #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def roll(self, interaction: discord.Interaction):
-        random_color = discord.Color(random.randint(0, 0xFFFFFF)) # Generate a random hex color  for the embed
+        random_color = discord.Color(numpy.random.randint(0, 0xFFFFFF)) # Generate a random hex color  for the embed
         embed = discord.Embed(
             title="Available Dice",
             description="You can roll the following dice:",

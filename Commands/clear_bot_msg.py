@@ -15,6 +15,8 @@ class ClearBotMsg(commands.Cog):
 
     @app_commands.command(name="clear_bot_msg", description="Clear the bot's messages")
     @app_commands.describe(amount="Number of bot messages to delete")
+    @app_commands.allowed_contexts(guilds=True, dms= True, private_channels=True)
+    @app_commands.user_install()
     #@app_commands.guilds(discord.Object(id=GUILD_ID))
     async def clear_bot_msg(self, interaction: discord.Interaction, amount: int):
         # Check for allowed user

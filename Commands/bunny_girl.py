@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 import os
 import dotenv
-import random
+import numpy
 
 dotenv.load_dotenv()
 GUILD_ID = os.getenv("GUILD_ID")
@@ -15,6 +15,8 @@ class BunnyGirl(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="bunny_girl", description="sends a random img of a bunny girl")
+    @app_commands.allowed_contexts(guilds=True, dms= True, private_channels=True)
+    @app_commands.user_install()
     #@app_commands.guilds(discord.Object(id=GUILD_ID))
     
     async def bunnyGirl(self, interaction: discord.Interaction):
@@ -28,7 +30,7 @@ class BunnyGirl(commands.Cog):
             await interaction.response.send_message("No images found!", ephemeral=True)
             return
 
-        chosen_file = random.choice(files)
+        chosen_file = numpy.random.choice(files)
         img_path = os.path.join(IMG_DIR, chosen_file)
 
         with open(img_path, 'rb') as img_file:
